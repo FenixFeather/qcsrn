@@ -19,7 +19,10 @@ import {
 export default class qcsrn extends Component {
     render() {
         return (
-	    <Queue queueUrl="https://cs233-queue.studentspace.cs.illinois.edu/queue/24"/>
+	    <Queue queueUrl="https://cs233-queue.studentspace.cs.illinois.edu/queue/24"
+		   iQueueUrl="https://cs233-queue.studentspace.cs.illinois.edu/instructor/queue/24"
+		   loginUrl="https://cs233-queue.studentspace.cs.illinois.edu/auth"
+	    />
         );
     }
 }

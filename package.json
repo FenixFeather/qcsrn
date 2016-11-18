@@ -7,9 +7,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "axios": "^0.15.2",
     "babel-preset-react-native-stage-0": "^1.0.1",
-    "jquery": "^3.1.1",
     "react": "15.3.2",
     "react-native": "0.37.0",
     "react-native-material-design": "^0.3.7",
@@ -19,11 +17,18 @@
     "underscore": "^1.8.3"
   },
   "jest": {
-    "preset": "jest-react-native"
+    "preset": "jest-react-native",
+    "verbose": true,
+    "unmockedModulePathPatterns": [
+      "node_modules/react/",
+      "node_modules/enzyme/",
+      "node_modules/underscore"
+    ]
   },
   "devDependencies": {
     "babel-jest": "17.0.0",
     "babel-preset-react-native": "1.9.0",
+    "enzyme": "^2.6.0",
     "jest": "17.0.0",
     "jest-react-native": "17.0.0",
     "react-test-renderer": "15.3.2",
