@@ -1,6 +1,7 @@
 import React from 'react';
 import {mount, shallow} from 'enzyme';
 import Queue '../Queue';
+import QDrawer '../QDrawer';
 import _ from 'underscore';
 import request from 'superagent';
 
@@ -44,5 +45,12 @@ describe('requests', () => {
 				     />);
 	_.last(request.end.mock.calls)[0](null, testResponse);
 	expect(queueWrapper.state().dataSource.length).toBe(2);
+    });
+
+    it('loads queues properly', () {
+	const queueWrapper = shallow(<QDrawer {...props}
+				     />);
+	_.last(request.end.mock.calls)[0](null, testResponse);
+	expect(queueWrapper.state().queues.length).toBe(2);
     });
 })
