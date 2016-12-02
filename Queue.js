@@ -43,6 +43,12 @@ export default class Queue extends Component {
 	this.loadQueueFromServer();
     }
 
+    componentDidUpdate(prevProps, prevState) {
+	if (this.props.queueUrl != prevProps.queueUrl) {
+	    this.loadQueueFromServer();
+	}
+    }
+
     handleSubmitQuestion = (question) => {
 	request
 	    .post(this.props.iQueueUrl)

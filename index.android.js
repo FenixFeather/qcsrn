@@ -7,6 +7,7 @@
 import React, { Component } from 'react';
 import request from 'superagent/superagent';
 import Queue from './Queue';
+import QDrawer from './QDrawer';
 import _ from 'underscore';
 import {
     AppRegistry,
@@ -17,12 +18,59 @@ import {
 } from 'react-native';
 
 export default class qcsrn extends Component {
+    static state = {
+	queueId: 24,
+	queues: [],
+    }
+
+    constructor(props) {
+	super(props);
+	this.state = {
+	    queueId: 24,
+	    queues: [],
+	};
+    }
+
+    componentDidMount() {
+	this.loadQueuesFromServer();
+	console.log(this.state.queues);
+    }
+
+    handleSelectQueue = (queueId) => {
+	console.log(queueId);
+	this.setState({queueId: queueId});
+    }
+
+    loadQueuesFromServer = () => {
+	request
+	    .get("https://cs233-queue.studentspace.cs.illinois.edu/class/1")
+	    .accept('json')
+	    .end((err, res) => {
+		if (err) {
+		    console.log(err);
+		}
+		else {
+		    console.log(res);
+		    console.log(res.body);
+		    this.setState({queues: res.body});
+		}
+	    });
+    }
+
     render() {
         return (
-	    <Queue queueUrl="https://cs233-queue.studentspace.cs.illinois.edu/queue/24"
-		   iQueueUrl="https://cs233-queue.studentspace.cs.illinois.edu/instructor/queue/24"
-		   loginUrl="https://cs233-queue.studentspace.cs.illinois.edu/auth"
-	    />
+	    <View style={{flex: 1}}>
+		<Queue queueUrl={`https://cs233-queue.studentspace.cs.illinois.edu/queue/${this.state.queueId}`}
+		       iQueueUrl={`https://cs233-queue.studentspace.cs.illinois.edu/instructor/queue/${this.state.queueId}`}
+		       loginUrl="https://cs233-queue.studentspace.cs.illinois.edu/auth"
+		       queueId={this.state.queueId}
+		/>
+
+		<QDrawer onSelectQueue={this.handleSelectQueue}
+			 queues={this.state.queues}
+			 queueInfoUrl=""
+		/>
+	    </View>
         );
     }
 }
