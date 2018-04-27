@@ -35,7 +35,7 @@ export default class QDrawer extends Component {
 	console.log(this.props.queues);
 	return (_.map(_.keys(this.props.queues), (key) => {
 	    return {
-		/* icon: 'home',*/
+		icon: 'home',
 		value: this.props.queues[key],
 		active: true,
 		onPress: () => {this.props.onSelectQueue(key)},
